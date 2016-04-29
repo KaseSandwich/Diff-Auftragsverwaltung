@@ -60,11 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JsonDataProvider.cs" />
     <Compile Include="DataRepository.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="ModelWrapper\AuftragWrapper.cs" />
     <Compile Include="ModelWrapper\CustomerWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlDataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

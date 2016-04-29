@@ -19,34 +19,63 @@ namespace AtgVerwaltung.Lib
 
         #region constructors
 
-        public DataRepository(IDataProvider dataProvider)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public DataRepository(IDataProvider dataProvider, string connection)
         {
-            
+            DataProvider = dataProvider;
+            ErstelleKunde(connection);
+            ErstelleAkrtikel(connection);
+            ErstelleAuftrag(connection);
+            ErstelleAzftragPosition(connection);
         }
         #endregion
 
-        public string ErstelleKunde()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleKunde(string connection)
         {
-            throw new NotImplementedException();
-            //ToDO
+            Kunden = DataProvider.GetKunden();
         }
 
-        public string ErstelleAuftrag(Kunde kunde)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleAuftrag(string connection)
         {
-            throw new NotImplementedException();
-            //ToDO
+            Auftaege = DataProvider.GetAuftraege();
         }
 
-        public string ErstelleAzftragPosition(Auftrag auftrag)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleAzftragPosition(string connection)
         {
-            throw new NotImplementedException();
-            //ToDO
+            Auftragspositionen = DataProvider.GetAuftragspositionen();
         }
 
-        public string ErstelleAkrtikel()
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleAkrtikel(string connection)
         {
-            throw new NotImplementedException();
-            //ToDO
+            Artikel = DataProvider.GetArtikle();
         }
 
 
