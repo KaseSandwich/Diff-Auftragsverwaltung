@@ -14,11 +14,12 @@ namespace AtgVerwaltung.Lib
         public List<Artikel> Artikel { get; set; }
         public List<Auftrag> Auftaege { get; set; }
         public List<Auftragsposition> Auftragspositionen { get; set; }
+        private readonly IDataProvider DataProvider;
         #endregion
 
         #region constructors
 
-        public DataRepository()
+        public DataRepository(IDataProvider dataProvider)
         {
             
         }
@@ -47,6 +48,7 @@ namespace AtgVerwaltung.Lib
             throw new NotImplementedException();
             //ToDO
         }
+
 
     }
 }
