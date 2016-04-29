@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtgVerwaltung.Model
 {
-    class Kunde
+    public class Kunde
     {
         #region props
         public string Uid { get; set; }
@@ -19,20 +19,11 @@ namespace AtgVerwaltung.Model
 
         #region constructors 
 
-        public Kunde(string name, string str, string plz, string ort, int klassifizirung)
-        {
-            Uid = Guid.NewGuid().ToString();
-            Name = name;
-            Str = str;
-            Plz = plz;
-            Ort = ort;
-            Klassifizirung = klassifizirung;
-        }
-
         public Kunde()
         {
-            
+            Uid = Guid.NewGuid().ToString();
         }
+
         #endregion 
     }
 }

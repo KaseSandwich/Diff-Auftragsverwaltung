@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtgVerwaltung.Model
 {
-    class Artikel
+    public class Artikel
     {
         #region props
         public string Uid { get; set; }
@@ -16,15 +16,9 @@ namespace AtgVerwaltung.Model
         #endregion
 
         #region constructers
-        public Artikel(string bezeichnung)
-        {
-            Bezeichnung = bezeichnung;
-            Uid = Guid.NewGuid().ToString();
-        }
-
         public Artikel()
         {
-            
+            Uid = Guid.NewGuid().ToString();
         }
 #endregion
     }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace AtgVerwaltung.Model
 {
-    class Auftragsposition
+    public class Auftragsposition
     {
         #region props
 
         public string Uid { get; set; }
         public string AuftragsUid { get; set; }
+        public string ArtikelUid { get; set; }
         public int Bestellmenge { get; set; }
         public int Liefermenge { get; set; }
         public double Rabatt { get; set; }
@@ -21,29 +22,18 @@ namespace AtgVerwaltung.Model
 
         #region constructors
 
-        public Auftragsposition(IDisountProvider disountProvider  ,int bestellMenge, int lieferMenge, double rabatt)
+        public Auftragsposition(string auftragUid, IDisountProvider disountProvider)
         {
             Uid = Guid.NewGuid().ToString();
-            AuftragsUid = Guid.NewGuid().ToString();
+            AuftragsUid = auftragUid;
             DiscountProvider = disountProvider;
-            Bestellmenge = bestellMenge;
-            Liefermenge = lieferMenge;
-            Rabatt = rabatt;
         }
-
-
-        public Auftragsposition()
-        {
-            
-        }
-
+        
         #endregion
 
-        public double GetPositionRabatt()
+        public void GetPositionRabatt()
         {
-            return Rabatt;
-            //ToDo mit Marco besprechen was es tut. 
+            Rabatt = DiscountProvider.GetPositionDiscount(Uid, Bestellmenge);
         }
-
     }
 }

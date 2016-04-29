@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtgVerwaltung.Model
 {
-    class Auftrag
+    public class Auftrag
     {
         #region props
         public string Uid { get; set; }
@@ -14,36 +14,30 @@ namespace AtgVerwaltung.Model
         public DateTime LieferDatum { get; set; }
         public int Status { get; set; }
         public string KundenUid { get; set; }
+        public double Rabatt { get; set; }
         private readonly IBillingProvider BillingProvider;
+        private readonly IDisountProvider DiscountProvider;
         #endregion
 
         #region constructers
-        public Auftrag(IBillingProvider billingProvider, DateTime auftragsDatum , DateTime lieferDatum, int status, string kundenUid)
+
+        public Auftrag(string kundenUid, IBillingProvider billingProvider, IDisountProvider discountProvider)
         {
             Uid = Guid.NewGuid().ToString();
             KundenUid = kundenUid;
             BillingProvider = billingProvider;
-            AuftragsDatum = auftragsDatum;
-            LieferDatum = lieferDatum;
-            Status = status;    
         }
 
-        public Auftrag()
-        {
-            
-        }
         #endregion
 
-        public double GetAuftragRabtt()
+        public void GetAuftragRabtt()
         {
-            //ToDO
-            throw new NotImplementedException();
+            Rabatt = DiscountProvider.GetAtgDiscount(Uid);
         }
 
         public string ErstelleRechnung()
         {
-            //ToDO
-            throw new NotImplementedException();
+            return BillingProvider.GetRechnung(Uid);
         }
     }
 }

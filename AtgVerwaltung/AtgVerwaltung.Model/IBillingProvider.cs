@@ -1,6 +1,7 @@
 namespace AtgVerwaltung.Model
 {
-    internal interface IBillingProvider
+    public interface IBillingProvider
     {
+        string GetRechnung(string auftragUid);
     }
 }
