@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataRepository.cs" />
+    <Compile Include="IDataProvider.cs" />
     <Compile Include="ModelWrapper\AuftragWrapper.cs" />
     <Compile Include="ModelWrapper\CustomerWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
