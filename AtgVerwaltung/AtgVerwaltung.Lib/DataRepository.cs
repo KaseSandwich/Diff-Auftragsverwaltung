@@ -7,7 +7,8 @@ using AtgVerwaltung.Model;
 
 namespace AtgVerwaltung.Lib
 {
-    class DataRepository
+    [Serializable]
+    public class DataRepository
     {
         #region props
         public List<Kunde> Kunden { get; set; }
@@ -25,15 +26,23 @@ namespace AtgVerwaltung.Lib
         /// </summary>
         /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
         /// for a DataBase.</param>
-        public DataRepository(IDataProvider dataProvider, string connection)
+        public DataRepository(IDataProvider dataProvider)
         {
             DataProvider = dataProvider;
-            ErstelleKunde(connection);
-            ErstelleAkrtikel(connection);
-            ErstelleAuftrag(connection);
-            ErstelleAzftragPosition(connection);
+        }
+
+        public void Init()
+        {
+            DataProvider.FillRepository(this);
+        }
+
+        public DataRepository()
+        {
         }
         #endregion
+
+
+        /*
 
         /// <summary>
         /// 
@@ -42,9 +51,8 @@ namespace AtgVerwaltung.Lib
         /// for a DataBase.</param>
         public void ErstelleKunde(string connection)
         {
-            Kunden = DataProvider.GetKunden();
         }
-
+        
 
         /// <summary>
         /// 
@@ -53,7 +61,6 @@ namespace AtgVerwaltung.Lib
         /// for a DataBase.</param>
         public void ErstelleAuftrag(string connection)
         {
-            Auftaege = DataProvider.GetAuftraege();
         }
 
 
@@ -64,7 +71,6 @@ namespace AtgVerwaltung.Lib
         /// for a DataBase.</param>
         public void ErstelleAzftragPosition(string connection)
         {
-            Auftragspositionen = DataProvider.GetAuftragspositionen();
         }
 
 
@@ -75,9 +81,8 @@ namespace AtgVerwaltung.Lib
         /// for a DataBase.</param>
         public void ErstelleAkrtikel(string connection)
         {
-            Artikel = DataProvider.GetArtikle();
         }
 
-
+        */
     }
 }

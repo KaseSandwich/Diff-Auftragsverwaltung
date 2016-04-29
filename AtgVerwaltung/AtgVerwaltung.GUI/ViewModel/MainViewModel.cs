@@ -1,8 +1,10 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using AtgVerwaltung.GUI.Views;
+using AtgVerwaltung.Lib;
 using AtgVerwaltung.Lib.ModelWrapper;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -93,7 +95,7 @@ namespace AtgVerwaltung.GUI.ViewModel
 
             IsLoading = false;
         }
-
+        
         private void OpenAtgExecute()
         {
             MessageBox.Show(SelectedAuftrag.Auftrag.Uid);

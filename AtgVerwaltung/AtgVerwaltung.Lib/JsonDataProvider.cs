@@ -9,24 +9,12 @@ namespace AtgVerwaltung.Lib
 {
     class JsonDataProvider : IDataProvider
     {
-        public List<Kunde> GetKunden()
+        public void FillRepository(DataRepository repo)
         {
-            throw new NotImplementedException();
         }
 
-        public List<Artikel> GetArtikle()
+        public void SaveRepository(DataRepository repo)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Auftrag> GetAuftraege()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Auftragsposition> GetAuftragspositionen()
-        {
-            throw new NotImplementedException();
         }
     }
 }
