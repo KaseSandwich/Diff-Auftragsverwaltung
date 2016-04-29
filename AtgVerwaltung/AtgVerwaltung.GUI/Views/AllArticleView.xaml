@@ -1,0 +1,24 @@
+﻿<controls:MetroWindow x:Class="AtgVerwaltung.GUI.Views.AllArticleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AtgVerwaltung.GUI.Views"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        DataContext="{Binding AllArticlesViewModel, Source={StaticResource Locator}}"
+        Title="AllArticleView" Height="300" Width="300">
+    <Grid>
+        <ListView ItemsSource="{Binding Artikel}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Bezeichnung}"/>
+                        <ToggleButton IsChecked="{Binding IstLieferbar}" Width="75" Style="{StaticResource MetroToggleSwitch}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</controls:MetroWindow>
+

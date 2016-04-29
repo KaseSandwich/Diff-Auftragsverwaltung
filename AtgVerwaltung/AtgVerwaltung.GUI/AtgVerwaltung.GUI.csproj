@@ -80,12 +80,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="DesignData\DesginDataProvider.cs" />
+    <Compile Include="ViewModel\AllArticlesViewModel.cs" />
     <Compile Include="ViewModel\NewCustomerViewModel.cs" />
     <Compile Include="ViewModel\NewArticleViewModel.cs" />
     <Compile Include="ViewModel\AuftragViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\AllArticleView.xaml.cs">
+      <DependentUpon>AllArticleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NewArticleWindow.xaml.cs">
       <DependentUpon>NewArticleWindow.xaml</DependentUpon>
     </Compile>
@@ -95,6 +100,10 @@
     <Page Include="Res\AtgVerwaltung.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AllArticleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AtgWindow.xaml">
       <SubType>Designer</SubType>

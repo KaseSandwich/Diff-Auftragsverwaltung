@@ -9,6 +9,7 @@
         xmlns:cmd="http://www.galasoft.ch/mvvmlight" 
         x:Class="AtgVerwaltung.GUI.Views.MainWindow"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="MainWindow" Height="700" Width="1200"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
@@ -57,11 +58,68 @@
             
             <controls:ProgressRing IsActive="{Binding IsLoading}"
 			                       Visibility="{Binding IsLoading}"/>
-            
-            <ListView Grid.Row="0"
-                      Background="Transparent"
-                      BorderThickness="0"
-                      Margin="3,3,3,3"></ListView>
+
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical"
+                            Grid.Column="0"
+                            Margin="6">
+                    <TextBlock Margin="3,3,3,3" 
+                               FontWeight="Bold">Kunden</TextBlock>
+
+                    <DataGrid ItemsSource="{Binding Kunden}"
+                          SelectedItem="{Binding SelectedKunde, Mode=OneWayToSource}"
+                          x:Name="KundenGrid"
+                          Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
+                          AutoGenerateColumns="False"
+                          MinColumnWidth="75">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Kunde.Name}"/>
+                            <DataGridTextColumn Header="PLZ" Binding="{Binding Kunde.Plz}"/>
+                            <DataGridTextColumn Header="Ort" Binding="{Binding Kunde.Ort}"/>
+                            <DataGridTextColumn Header="Straße" Binding="{Binding Kunde.Str}"/>
+                            <DataGridTextColumn Header="Anzahl Aufträge" Binding="{Binding Auftraege.Count}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical"
+                            Grid.Column="1" 
+                            Margin="6">
+                    <TextBlock Margin="3,3,3,3" 
+                               FontWeight="Bold">Aufträge</TextBlock>
+
+                    <DataGrid 
+                          AutoGenerateColumns="False"
+                          SelectedItem="{Binding SelectedAuftrag, Mode=OneWayToSource}"
+                          ItemsSource="{Binding SelectedKunde.Auftraege}"
+                          Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
+                          MinColumnWidth="75">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Auftragsdatum" Binding="{Binding Auftrag.AuftragsDatum}"/>
+                        <DataGridTextColumn Header="Auftrags ID" Binding="{Binding Auftrag.Uid}"/>
+                    </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="{Binding OpenAtgCommand}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <ContentPresenter Content="{StaticResource Purchase-Order}"/>
+                                            <TextBlock Text="Auftrag anzeigen"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                </DataGrid>
+                </StackPanel>
+            </Grid>
             <DockPanel Grid.Row="1" Margin="3,3,3,3">
                 <Button Content="{StaticResource User-Add-WF}"
                         Margin="3,3,3,3"

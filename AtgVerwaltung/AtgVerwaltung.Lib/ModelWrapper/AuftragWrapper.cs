@@ -25,6 +25,15 @@ namespace AtgVerwaltung.Lib.ModelWrapper
             set { _positionen = value; RaisePropertyChanged(); }
         }
 
+        public AuftragWrapper(Auftrag atg)
+        {
+            Auftrag = atg;
+            Positionen = new ObservableCollection<Auftragsposition>();
+        }
 
+        public AuftragWrapper()
+        {
+            Positionen = new ObservableCollection<Auftragsposition>();
+        }
     }
 }

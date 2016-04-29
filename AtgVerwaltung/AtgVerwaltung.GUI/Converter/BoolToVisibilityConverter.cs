@@ -13,9 +13,13 @@ namespace AtgVerwaltung.GUI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is bool)
-                return (bool) value ? Visibility.Visible : Visibility.Collapsed;
-            return null;
+            if (!(value is bool))
+                return null;
+
+            if(parameter != null)
+                return (bool)value ? Visibility.Collapsed : Visibility.Visible;
+
+            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

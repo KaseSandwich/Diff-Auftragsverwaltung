@@ -26,6 +26,7 @@ namespace AtgVerwaltung.Model
             Uid = Guid.NewGuid().ToString();
             KundenUid = kundenUid;
             BillingProvider = billingProvider;
+            DiscountProvider = discountProvider;
         }
 
         #endregion
