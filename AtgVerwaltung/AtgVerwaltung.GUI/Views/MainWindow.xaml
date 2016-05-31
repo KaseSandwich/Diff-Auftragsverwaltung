@@ -32,7 +32,7 @@
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter Content="{StaticResource User-Add-WF}"/>
-                            <TextBlock Text="Neuer Kunde"
+                            <TextBlock Text="Kunden"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </MenuItem.Header>
@@ -42,7 +42,7 @@
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter Content="{StaticResource Product}"
                                               HorizontalAlignment="Left"/>
-                            <TextBlock Text="Neuer Artikel"
+                            <TextBlock Text="Artikel"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </MenuItem.Header>
@@ -77,7 +77,8 @@
                           x:Name="KundenGrid"
                           Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
                           AutoGenerateColumns="False"
-                          MinColumnWidth="75">
+                          MinColumnWidth="75"
+                              CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Kunde.Name}"/>
                             <DataGridTextColumn Header="PLZ" Binding="{Binding Kunde.Plz}"/>
@@ -99,7 +100,8 @@
                           SelectedItem="{Binding SelectedAuftrag, Mode=OneWayToSource}"
                           ItemsSource="{Binding SelectedKunde.Auftraege}"
                           Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
-                          MinColumnWidth="75">
+                          MinColumnWidth="75"
+                        CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Auftragsdatum" Binding="{Binding Auftrag.AuftragsDatum}"/>
                         <DataGridTextColumn Header="Auftrags ID" Binding="{Binding Auftrag.Uid}"/>
@@ -139,6 +141,7 @@
                         Background="Transparent"
                         Command="{Binding CloseCommand}"
                         Content="{StaticResource Exit-03}">
+                    
                 </Button>
             </DockPanel>
         </Grid>

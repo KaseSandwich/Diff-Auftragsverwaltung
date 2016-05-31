@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AtgVerwaltung.Model;
+using GalaSoft.MvvmLight.Command;
 
 namespace AtgVerwaltung.GUI.ViewModel
 {
@@ -16,6 +17,9 @@ namespace AtgVerwaltung.GUI.ViewModel
             get { return _artikel; }
             set { _artikel = value; RaisePropertyChanged();}
         }
+
+        public RelayCommand AddArticleCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
 
         public AllArticlesViewModel()
         {
@@ -34,6 +38,19 @@ namespace AtgVerwaltung.GUI.ViewModel
                     Preis = 12.67
                 }
             };
+
+            AddArticleCommand = new RelayCommand(AddArticleExecute);
+            CloseCommand = new RelayCommand(CloseExecute);
+        }
+
+        private void CloseExecute()
+        {
+            //TODO Serialisierung implementieren
+        }
+
+        private void AddArticleExecute()
+        {
+            Artikel.Add(new Artikel() {Bezeichnung = "Neuer Artikel", IstLieferbar = false, Preis = 0.0});
         }
     }
 }

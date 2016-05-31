@@ -72,7 +72,7 @@ namespace AtgVerwaltung.GUI.ViewModel
         private void CreateArticleExecute()
         {
             var articleView = new AllArticleView();
-            articleView.ShowDialog();
+            articleView.ShowDialog(); // TODO Implement
         }
 
         private void CreateCustomerExecute()
