@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtgVerwaltung.Model
 {
+    [Serializable]
     public class Artikel
     {
         #region props

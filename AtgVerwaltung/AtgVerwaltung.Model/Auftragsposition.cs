@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtgVerwaltung.Model
 {
+    [Serializable]
     public class Auftragsposition
     {
         #region props
@@ -27,6 +28,11 @@ namespace AtgVerwaltung.Model
             Uid = Guid.NewGuid().ToString();
             AuftragsUid = auftragUid;
             DiscountProvider = disountProvider;
+        }
+
+        public Auftragsposition()
+        {
+            
         }
         
         #endregion

@@ -7,7 +7,8 @@ using AtgVerwaltung.Model;
 
 namespace AtgVerwaltung.Lib
 {
-    class DataRepository
+    [Serializable]
+    public class DataRepository
     {
         #region props
         public List<Kunde> Kunden { get; set; }
@@ -19,36 +20,69 @@ namespace AtgVerwaltung.Lib
 
         #region constructors
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
         public DataRepository(IDataProvider dataProvider)
         {
-            
+            DataProvider = dataProvider;
+        }
+
+        public void Init()
+        {
+            DataProvider.FillRepository(this);
+        }
+
+        public DataRepository()
+        {
         }
         #endregion
 
-        public string ErstelleKunde()
+
+        /*
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleKunde(string connection)
         {
-            throw new NotImplementedException();
-            //ToDO
+        }
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleAuftrag(string connection)
+        {
         }
 
-        public string ErstelleAuftrag(Kunde kunde)
-        {
-            throw new NotImplementedException();
-            //ToDO
-        }
 
-        public string ErstelleAzftragPosition(Auftrag auftrag)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleAzftragPosition(string connection)
         {
-            throw new NotImplementedException();
-            //ToDO
-        }
-
-        public string ErstelleAkrtikel()
-        {
-            throw new NotImplementedException();
-            //ToDO
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connection">is the place were data are Stored for example in a Json file "C://josonTest.joson" or a connection strin
+        /// for a DataBase.</param>
+        public void ErstelleAkrtikel(string connection)
+        {
+        }
+
+        */
     }
 }
