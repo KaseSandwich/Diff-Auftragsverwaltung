@@ -86,7 +86,7 @@ namespace AtgVerwaltung.GUI.DesignData
             var kd1Wrapper = new CustomerWrapper()
             {
                 Kunde = kunde1,
-                Auftraege = new ObservableCollection<AuftragWrapper>() {new AuftragWrapper(atg1Kd1)}
+                Auftraege = new ObservableCollection<AuftragWrapper>() { atgWrapper }
             };
 
             var kd2Wrapper = new CustomerWrapper()

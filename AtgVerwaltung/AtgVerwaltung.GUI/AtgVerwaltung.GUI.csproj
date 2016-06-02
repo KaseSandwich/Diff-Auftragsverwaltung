@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="DesignData\DesginDataProvider.cs" />
+    <Compile Include="Messages\CloseAtgMessage.cs" />
     <Compile Include="ViewModel\AllArticlesViewModel.cs" />
     <Compile Include="ViewModel\NewCustomerViewModel.cs" />
     <Compile Include="ViewModel\NewArticleViewModel.cs" />

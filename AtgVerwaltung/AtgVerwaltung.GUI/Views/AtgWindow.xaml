@@ -5,10 +5,100 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AtgVerwaltung.GUI.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
+        BorderBrush="Black"
+        BorderThickness="1"
+                      Closing="AtgWindow_OnClosing"
         Title="AtgWindow" Height="700" Width="1200">
     <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <command:EventToCommand Command="{Binding LoadedCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Datei">
+                    <MenuItem Header="Datei _einlesen" 
+                          Command="{Binding ReadFileCommand}"/>
+                    <MenuItem Header="Datei _speichern" 
+                          Command="{Binding SaveFileCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Pflege">
+                    <MenuItem Command="{Binding CreateCustomerCommand}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ContentPresenter Content="{StaticResource User-Add-WF}"/>
+                                <TextBlock Text="Neuer Kunde"
+                                       VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Command="{Binding CreateArticleCommand}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ContentPresenter Content="{StaticResource Product}"
+                                              HorizontalAlignment="Left"/>
+                                <TextBlock Text="Neuer Artikel"
+                                       VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+
+            <Grid DockPanel.Dock="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <controls:ProgressRing IsActive="{Binding IsLoading}"
+			                       Visibility="{Binding IsLoading}"/>
+                
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    
+
+                    <StackPanel Orientation="Vertical"
+                            Grid.Column="1" 
+                            Margin="6">
+                        <TextBlock Margin="3,3,3,3" 
+                               FontWeight="Bold">Positionen</TextBlock>
+
+                        <DataGrid 
+                          AutoGenerateColumns="True"
+                          SelectedItem="{Binding SelectedPos, Mode=OneWayToSource}"
+                          ItemsSource="{Binding Auftrag.Positionen}"
+                          Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
+                          MinColumnWidth="75">
+                            <DataGrid.Columns>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+                
+                <DockPanel Grid.Row="1" Margin="3,3,3,3">
+                    <Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Click="ButtonBase_OnClick"
+                        Content="{StaticResource Exit-03}">
+                    </Button>
+                </DockPanel>
+            </Grid>
+        </DockPanel>
     </Grid>
 </controls:MetroWindow>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AtgVerwaltung.GUI.ViewModel;
 using MahApps.Metro.Controls;
 
 namespace AtgVerwaltung.GUI.Views
@@ -20,9 +22,27 @@ namespace AtgVerwaltung.GUI.Views
     /// </summary>
     public partial class AtgWindow : MetroWindow
     {
-        public AtgWindow()
+        public AtgWindow(AuftragViewModel vm)
         {
+            this.DataContext = vm;
             InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void AtgWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            HandleAtgOpen();
+        }
+
+        private void HandleAtgOpen()
+        {
+            var vm = (AuftragViewModel)this.DataContext;
+            if (vm != null)
+                vm.Auftrag.IsOpen = false;
         }
     }
 }

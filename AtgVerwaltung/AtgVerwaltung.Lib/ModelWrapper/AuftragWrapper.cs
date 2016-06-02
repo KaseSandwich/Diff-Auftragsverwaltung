@@ -11,6 +11,14 @@ namespace AtgVerwaltung.Lib.ModelWrapper
 {
     public class AuftragWrapper : ObservableObject
     {
+        private bool _isOpen;
+
+        public bool IsOpen
+        {
+            get { return _isOpen; }
+            set { _isOpen = value; RaisePropertyChanged(); }
+        }
+        
         private Auftrag _auftrag;
         public Auftrag Auftrag
         {

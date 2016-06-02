@@ -8,6 +8,7 @@ using AtgVerwaltung.Lib;
 using AtgVerwaltung.Lib.ModelWrapper;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace AtgVerwaltung.GUI.ViewModel
 {
@@ -98,7 +99,16 @@ namespace AtgVerwaltung.GUI.ViewModel
         
         private void OpenAtgExecute()
         {
-            MessageBox.Show(SelectedAuftrag.Auftrag.Uid);
+            if (SelectedAuftrag.IsOpen)
+            {
+                MessageBox.Show("Auftrag ist bereits geöffnet!");
+                return;
+            }
+
+            AuftragViewModel vm = new AuftragViewModel(SelectedAuftrag);
+            AtgWindow atgWin = new AtgWindow(vm);
+            atgWin.Show();
+            SelectedAuftrag.IsOpen = true;
         }
         #endregion
     }
