@@ -96,14 +96,14 @@
     <Compile Include="Views\AllArticleView.xaml.cs">
       <DependentUpon>AllArticleView.xaml</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Res\AtgVerwaltung.xaml">
+    <Page Include="Res\AtgVerwaltung.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Res\Styles.xaml">
+    </Page>
+    <Page Include="Res\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Page>
     <Page Include="Views\AllArticleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
