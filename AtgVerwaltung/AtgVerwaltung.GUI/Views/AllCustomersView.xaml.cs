@@ -19,20 +19,19 @@ using MahApps.Metro.Controls;
 namespace AtgVerwaltung.GUI.Views
 {
     /// <summary>
-    /// Interaction logic for AtgWindow.xaml
+    /// Interaction logic for AllCustomersView.xaml
     /// </summary>
-    public partial class AtgWindow : MetroWindow
+    public partial class AllCustomersView : MetroWindow
     {
-        public AtgWindow(AuftragViewModel vm)
+        public AllCustomersView()
         {
             InitializeComponent();
-            this.DataContext = vm;
             Messenger.Default.Register<CloseMessage>(this, CloseExecute);
         }
 
         private void CloseExecute(CloseMessage obj)
         {
-            if(obj.T.GetType() == typeof(AuftragViewModel))
+            if (obj.T.GetType() == typeof(AllCustomersViewModel))
                 this.Close();
         }
     }

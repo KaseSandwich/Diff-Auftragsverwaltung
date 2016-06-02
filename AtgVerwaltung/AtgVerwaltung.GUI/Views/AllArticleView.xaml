@@ -7,18 +7,64 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         DataContext="{Binding AllArticlesViewModel, Source={StaticResource Locator}}"
-        Title="AllArticleView" Height="300" Width="300">
+        Title="AllArticleView" Height="600" Width="500"
+                      BorderThickness="1"
+                      BorderBrush="Black">
     <Grid>
-        <ListView ItemsSource="{Binding Artikel}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Bezeichnung}"/>
-                        <ToggleButton IsChecked="{Binding IstLieferbar}" Width="75" Style="{StaticResource MetroToggleSwitch}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding Artikel}"
+                  BorderThickness="0"
+                  Margin="6"
+                  Grid.Row="0"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Bezeichnung}" Header ="Bezeichnung"/>
+                <DataGridTemplateColumn Header ="Lieferbar">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <controls:ToggleSwitch IsChecked="{Binding IstLieferbar}"
+                                                   OnLabel=""
+                                                   OffLabel=""/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Preis">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox InputScope="Number" Text="{Binding Preis, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <DockPanel Grid.Row="2">
+            <Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Left"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Command="{Binding AddArticleCommand}"
+                        Content="{StaticResource Product}"/>
+            <Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Command="{Binding CloseCommand}"
+                        Content="{StaticResource Exit-03}"/>
+        </DockPanel>
     </Grid>
 </controls:MetroWindow>
+
 

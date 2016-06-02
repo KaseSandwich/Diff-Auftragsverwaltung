@@ -29,10 +29,12 @@ namespace AtgVerwaltung.GUI.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<AllArticlesViewModel>();
+            SimpleIoc.Default.Register<AllCustomersViewModel>();
         }
 
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
         public AllArticlesViewModel AllArticlesViewModel => ServiceLocator.Current.GetInstance<AllArticlesViewModel>();
+        public AllCustomersViewModel AllCustomersViewModel => ServiceLocator.Current.GetInstance<AllCustomersViewModel>();
 
         public static void Cleanup()
         {

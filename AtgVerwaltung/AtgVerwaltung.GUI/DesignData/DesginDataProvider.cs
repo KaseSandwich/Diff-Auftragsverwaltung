@@ -77,16 +77,29 @@ namespace AtgVerwaltung.GUI.DesignData
                 Liefermenge = 20
             };
 
+            var pos1Wrapper = new PositionWrapper()
+            {
+                Position = pos1atg1,
+                Artikel = artikel1
+            };
+
+            var pos2Wrapper = new PositionWrapper()
+            {
+                Position = pos2atg1,
+                Artikel = artikel2
+            };
+
             var atgWrapper = new AuftragWrapper()
             {
                 Auftrag = atg1Kd1,
-                Positionen = new ObservableCollection<Auftragsposition>() {pos1atg1, pos2atg1}
+                Positionen = new ObservableCollection<PositionWrapper>() {pos1Wrapper, pos2Wrapper},
+                Kunde = kunde1
             };
 
             var kd1Wrapper = new CustomerWrapper()
             {
                 Kunde = kunde1,
-                Auftraege = new ObservableCollection<AuftragWrapper>() { atgWrapper }
+                Auftraege = new ObservableCollection<AuftragWrapper>() {atgWrapper}
             };
 
             var kd2Wrapper = new CustomerWrapper()

@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AtgVerwaltung.GUI.Messages;
 using AtgVerwaltung.Lib.ModelWrapper;
-using AtgVerwaltung.Model;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace AtgVerwaltung.GUI.ViewModel
 {
@@ -16,19 +16,27 @@ namespace AtgVerwaltung.GUI.ViewModel
         public AuftragWrapper Auftrag
         {
             get { return _auftrag; }
-            set { _auftrag = value; RaisePropertyChanged(); }
+            set { _auftrag = value; RaisePropertyChanged();}
         }
 
-        private Auftragsposition _selectedPos;
-        public Auftragsposition SelectedPos
-        {
-            get { return _selectedPos; }
-            set { _selectedPos = value; RaisePropertyChanged(); }
-        }
-        
+        public RelayCommand LoadedCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
+
         public AuftragViewModel(AuftragWrapper auftrag)
         {
-            _auftrag = auftrag;
+            Auftrag = auftrag;
+            LoadedCommand = new RelayCommand(LoadedExecute);
+            CloseCommand = new RelayCommand(CloseExecute);
+        }
+
+        private void CloseExecute()
+        {
+            Messenger.Default.Send<CloseMessage>(new CloseMessage(this));
+        }
+
+        private void LoadedExecute()
+        {
+            
         }
     }
 }

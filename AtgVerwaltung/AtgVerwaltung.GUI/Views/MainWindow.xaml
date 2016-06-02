@@ -31,7 +31,7 @@
                     <MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter Content="{StaticResource User-Add-WF}"/>
-                            <TextBlock Text="Neuer Kunde"
+                            <TextBlock Text="Kunden"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </MenuItem.Header>
@@ -41,7 +41,7 @@
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter Content="{StaticResource Product}"
                                               HorizontalAlignment="Left"/>
-                            <TextBlock Text="Neuer Artikel"
+                            <TextBlock Text="Artikel"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
                     </MenuItem.Header>
@@ -72,17 +72,24 @@
                                FontWeight="Bold">Kunden</TextBlock>
 
                     <DataGrid ItemsSource="{Binding Kunden}"
-                          SelectedItem="{Binding SelectedKunde, Mode=OneWayToSource}"
-                          x:Name="KundenGrid"
-                          Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
-                          AutoGenerateColumns="False"
-                          MinColumnWidth="75">
+                              IsReadOnly="True"
+                              SelectedItem="{Binding SelectedKunde, Mode=OneWayToSource}"
+                              x:Name="KundenGrid"
+                              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Kunde.Name}"/>
                             <DataGridTextColumn Header="PLZ" Binding="{Binding Kunde.Plz}"/>
                             <DataGridTextColumn Header="Ort" Binding="{Binding Kunde.Ort}"/>
-                            <DataGridTextColumn Header="Straße" Binding="{Binding Kunde.Str}"/>
-                            <DataGridTextColumn Header="Anzahl Aufträge" Binding="{Binding Auftraege.Count}"/>
+                            <DataGridTextColumn Header="Straße" Binding="{Binding Kunde.Str}" Width="175"/>
+                            <DataGridTextColumn Header="Aufträge" Binding="{Binding Auftraege.Count}" Width="90">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
@@ -94,11 +101,14 @@
                                FontWeight="Bold">Aufträge</TextBlock>
 
                     <DataGrid 
+                        x:Name="AtgsGrid"
                           AutoGenerateColumns="False"
+                        IsReadOnly="True"
                           SelectedItem="{Binding SelectedAuftrag, Mode=OneWayToSource}"
                           ItemsSource="{Binding SelectedKunde.Auftraege}"
                           Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
-                          MinColumnWidth="75">
+                          MinColumnWidth="75"
+                        CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Auftragsdatum" Binding="{Binding Auftrag.AuftragsDatum}"/>
                         <DataGridTextColumn Header="Auftrags ID" Binding="{Binding Auftrag.Uid}"/>
@@ -120,7 +130,7 @@
                 </StackPanel>
             </Grid>
             <DockPanel Grid.Row="1" Margin="3,3,3,3">
-                <Button Content="{StaticResource User-Add-WF}"
+                <Button Content="{StaticResource Purchase-Order}"
                         Margin="3,3,3,3"
                         Width="75"
                         Height="75"
@@ -138,6 +148,7 @@
                         Background="Transparent"
                         Command="{Binding CloseCommand}"
                         Content="{StaticResource Exit-03}">
+                    
                 </Button>
             </DockPanel>
         </Grid>

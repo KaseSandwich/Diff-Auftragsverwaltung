@@ -5,99 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AtgVerwaltung.GUI.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        BorderBrush="Black"
+        WindowState="Maximized"
         BorderThickness="1"
-                      Closing="AtgWindow_OnClosing"
+        BorderBrush="Black"
         Title="AtgWindow" Height="700" Width="1200">
     <Grid>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <command:EventToCommand Command="{Binding LoadedCommand}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_Datei">
-                    <MenuItem Header="Datei _einlesen" 
-                          Command="{Binding ReadFileCommand}"/>
-                    <MenuItem Header="Datei _speichern" 
-                          Command="{Binding SaveFileCommand}"/>
-                </MenuItem>
-                <MenuItem Header="_Pflege">
-                    <MenuItem Command="{Binding CreateCustomerCommand}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <ContentPresenter Content="{StaticResource User-Add-WF}"/>
-                                <TextBlock Text="Neuer Kunde"
-                                       VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem Command="{Binding CreateArticleCommand}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <ContentPresenter Content="{StaticResource Product}"
-                                              HorizontalAlignment="Left"/>
-                                <TextBlock Text="Neuer Artikel"
-                                       VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+            
+        <Grid Grid.Column="0" Grid.Row="0" Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Auftragsdatum"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Lieferdatum"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Status"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Kunde"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Auftragsrabatt"/>
+            
+            <DatePicker Grid.Row="0" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="3" SelectedDate="{Binding Auftrag.Auftrag.AuftragsDatum}"/>
+            <DatePicker Grid.Row="1" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="3" SelectedDate="{Binding Auftrag.Auftrag.LieferDatum}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBlock}" Text="{Binding Auftrag.Auftrag.Status}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBox}" Text="{Binding Auftrag.Kunde.Name}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBox}" Text="{Binding Auftrag.Auftrag.Rabatt}"/>
+        </Grid>
+        
+        <DataGrid Grid.Column="1" 
+                  Grid.Row="0"
+                  Margin="6" 
+                  ItemsSource="{Binding Auftrag.Positionen}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Artikel" Width="150" Binding="{Binding Artikel.Bezeichnung}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Menge (Stk)" Binding="{Binding Position.Bestellmenge}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Einzelpreis (€)" Binding="{Binding Artikel.Preis}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Rabatt (%)" Binding="{Binding Position.Rabatt}" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Netto (€)" Binding="{Binding Netto}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
 
-            <Grid DockPanel.Dock="Bottom">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <controls:ProgressRing IsActive="{Binding IsLoading}"
-			                       Visibility="{Binding IsLoading}"/>
-                
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    
-
-                    <StackPanel Orientation="Vertical"
-                            Grid.Column="1" 
-                            Margin="6">
-                        <TextBlock Margin="3,3,3,3" 
-                               FontWeight="Bold">Positionen</TextBlock>
-
-                        <DataGrid 
-                          AutoGenerateColumns="True"
-                          SelectedItem="{Binding SelectedPos, Mode=OneWayToSource}"
-                          ItemsSource="{Binding Auftrag.Positionen}"
-                          Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=1}"
-                          MinColumnWidth="75">
-                            <DataGrid.Columns>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                </Grid>
-                
-                <DockPanel Grid.Row="1" Margin="3,3,3,3">
-                    <Button Margin="3,3,3,3"
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <!--<Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Left"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Command="{Binding AddCustomerCommand}"
+                        Content="{StaticResource User-Add-WF}"/>-->
+            <Button Margin="3,3,3,3"
                         Width="75"
                         Height="75"
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right"
                         BorderThickness="0"
                         Background="Transparent"
-                        Click="ButtonBase_OnClick"
-                        Content="{StaticResource Exit-03}">
-                    </Button>
-                </DockPanel>
-            </Grid>
+                        Command="{Binding CloseCommand}"
+                        Content="{StaticResource Exit-03}"/>
         </DockPanel>
     </Grid>
 </controls:MetroWindow>

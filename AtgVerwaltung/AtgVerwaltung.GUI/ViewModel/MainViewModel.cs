@@ -8,7 +8,6 @@ using AtgVerwaltung.Lib;
 using AtgVerwaltung.Lib.ModelWrapper;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using MahApps.Metro.Controls.Dialogs;
 
 namespace AtgVerwaltung.GUI.ViewModel
 {
@@ -80,7 +79,8 @@ namespace AtgVerwaltung.GUI.ViewModel
 
         private void CreateCustomerExecute()
         {
-            MessageBox.Show("Neuer Kunde");
+            var customerView = new AllCustomersView();
+            customerView.ShowDialog();
         }
 
         private async void LoadedExecute()
@@ -99,16 +99,12 @@ namespace AtgVerwaltung.GUI.ViewModel
         
         private void OpenAtgExecute()
         {
-            if (SelectedAuftrag.IsOpen)
-            {
-                MessageBox.Show("Auftrag ist bereits geöffnet!");
+            if (SelectedAuftrag == null)
                 return;
-            }
-
-            AuftragViewModel vm = new AuftragViewModel(SelectedAuftrag);
-            AtgWindow atgWin = new AtgWindow(vm);
-            atgWin.Show();
-            SelectedAuftrag.IsOpen = true;
+            
+            var vm = new AuftragViewModel(SelectedAuftrag);
+            var win = new AtgWindow(vm);
+            win.ShowDialog();
         }
         #endregion
     }
