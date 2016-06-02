@@ -18,8 +18,16 @@ namespace AtgVerwaltung.Lib.ModelWrapper
             set { _auftrag = value; RaisePropertyChanged();}
         }
 
-        private ObservableCollection<Auftragsposition> _positionen;
-        public ObservableCollection<Auftragsposition> Positionen
+        private Kunde _kunde;
+        public Kunde Kunde
+        {
+            get { return _kunde; }
+            set { _kunde = value; RaisePropertyChanged();}
+        }
+
+
+        private ObservableCollection<PositionWrapper> _positionen;
+        public ObservableCollection<PositionWrapper> Positionen
         {
             get { return _positionen; }
             set { _positionen = value; RaisePropertyChanged(); }
@@ -28,12 +36,12 @@ namespace AtgVerwaltung.Lib.ModelWrapper
         public AuftragWrapper(Auftrag atg)
         {
             Auftrag = atg;
-            Positionen = new ObservableCollection<Auftragsposition>();
+            Positionen = new ObservableCollection<PositionWrapper>();
         }
 
         public AuftragWrapper()
         {
-            Positionen = new ObservableCollection<Auftragsposition>();
+            Positionen = new ObservableCollection<PositionWrapper>();
         }
     }
 }

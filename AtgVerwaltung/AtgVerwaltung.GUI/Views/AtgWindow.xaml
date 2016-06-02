@@ -6,9 +6,83 @@
         xmlns:local="clr-namespace:AtgVerwaltung.GUI.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
+        WindowState="Maximized"
+        BorderThickness="1"
+        BorderBrush="Black"
         Title="AtgWindow" Height="700" Width="1200">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+            
+        <Grid Grid.Column="0" Grid.Row="0" Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Auftragsdatum"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Lieferdatum"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Status"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Kunde"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Style="{DynamicResource MiddleAllignedTextBlock}" Text="Auftragsrabatt"/>
+            
+            <DatePicker Grid.Row="0" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="3" SelectedDate="{Binding Auftrag.Auftrag.AuftragsDatum}"/>
+            <DatePicker Grid.Row="1" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="3" SelectedDate="{Binding Auftrag.Auftrag.LieferDatum}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBlock}" Text="{Binding Auftrag.Auftrag.Status}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBox}" Text="{Binding Auftrag.Kunde.Name}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBox}" Text="{Binding Auftrag.Auftrag.Rabatt}"/>
+        </Grid>
+        
+        <DataGrid Grid.Column="1" 
+                  Grid.Row="0"
+                  Margin="6" 
+                  ItemsSource="{Binding Auftrag.Positionen}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Artikel" Width="150" Binding="{Binding Artikel.Bezeichnung}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Menge (Stk)" Binding="{Binding Position.Bestellmenge}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Einzelpreis (€)" Binding="{Binding Artikel.Preis}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Rabatt (%)" Binding="{Binding Position.Rabatt}" IsReadOnly="False"/>
+                <DataGridTextColumn Header="Netto (€)" Binding="{Binding Netto}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <!--<Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Left"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Command="{Binding AddCustomerCommand}"
+                        Content="{StaticResource User-Add-WF}"/>-->
+            <Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Command="{Binding CloseCommand}"
+                        Content="{StaticResource Exit-03}"/>
+        </DockPanel>
     </Grid>
 </controls:MetroWindow>
 

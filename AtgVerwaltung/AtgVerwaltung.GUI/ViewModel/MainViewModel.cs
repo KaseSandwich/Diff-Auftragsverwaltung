@@ -74,12 +74,13 @@ namespace AtgVerwaltung.GUI.ViewModel
         private void CreateArticleExecute()
         {
             var articleView = new AllArticleView();
-            articleView.ShowDialog(); // TODO Implement
+            articleView.ShowDialog();
         }
 
         private void CreateCustomerExecute()
         {
-            MessageBox.Show("Neuer Kunde");
+            var customerView = new AllCustomersView();
+            customerView.ShowDialog();
         }
 
         private async void LoadedExecute()
@@ -98,7 +99,12 @@ namespace AtgVerwaltung.GUI.ViewModel
         
         private void OpenAtgExecute()
         {
-            MessageBox.Show(SelectedAuftrag.Auftrag.Uid);
+            if (SelectedAuftrag == null)
+                return;
+            
+            var vm = new AuftragViewModel(SelectedAuftrag);
+            var win = new AtgWindow(vm);
+            win.ShowDialog();
         }
         #endregion
     }

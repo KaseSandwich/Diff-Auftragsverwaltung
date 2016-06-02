@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <!-- Icons for Application -->
                 <ResourceDictionary Source="Res/AtgVerwaltung.xaml"/>
+                <ResourceDictionary Source="Res/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

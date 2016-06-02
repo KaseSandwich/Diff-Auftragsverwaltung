@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AtgVerwaltung.GUI.Messages;
 using AtgVerwaltung.Model;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace AtgVerwaltung.GUI.ViewModel
 {
@@ -45,7 +47,8 @@ namespace AtgVerwaltung.GUI.ViewModel
 
         private void CloseExecute()
         {
-            //TODO Serialisierung implementieren
+            //TODO Save
+            Messenger.Default.Send<CloseMessage>(new CloseMessage(this));
         }
 
         private void AddArticleExecute()

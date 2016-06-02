@@ -81,9 +81,9 @@
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="DesignData\DesginDataProvider.cs" />
+    <Compile Include="Messages\CloseMessage.cs" />
     <Compile Include="ViewModel\AllArticlesViewModel.cs" />
-    <Compile Include="ViewModel\NewCustomerViewModel.cs" />
-    <Compile Include="ViewModel\NewArticleViewModel.cs" />
+    <Compile Include="ViewModel\AllCustomersViewModel.cs" />
     <Compile Include="ViewModel\AuftragViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -91,17 +91,19 @@
     <Compile Include="Views\AllArticleView.xaml.cs">
       <DependentUpon>AllArticleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NewArticleWindow.xaml.cs">
-      <DependentUpon>NewArticleWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\NewCustomerWindow.xaml.cs">
-      <DependentUpon>NewCustomerWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="Res\AtgVerwaltung.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Res\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AllArticleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AllCustomersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,6 +119,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\AllCustomersView.xaml.cs">
+      <DependentUpon>AllCustomersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AtgWindow.xaml.cs">
       <DependentUpon>AtgWindow.xaml</DependentUpon>
     </Compile>
@@ -124,14 +129,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\NewArticleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NewCustomerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
