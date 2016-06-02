@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AtgVerwaltung.GUI.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
         WindowState="Maximized"
         BorderThickness="1"
@@ -44,35 +46,59 @@
             <DatePicker Grid.Row="0" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="3" SelectedDate="{Binding Auftrag.Auftrag.AuftragsDatum}"/>
             <DatePicker Grid.Row="1" Grid.Column="1" Width="150" HorizontalAlignment="Left" Margin="3" SelectedDate="{Binding Auftrag.Auftrag.LieferDatum}"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBlock}" Text="{Binding Auftrag.Auftrag.Status}"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBox}" Text="{Binding Auftrag.Kunde.Name}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBlock}" Text="{Binding Auftrag.Kunde.Name}"/>
             <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource MiddleAllignedTextBox}" Text="{Binding Auftrag.Auftrag.Rabatt}"/>
         </Grid>
-        
-        <DataGrid Grid.Column="1" 
-                  Grid.Row="0"
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="1" 
+                    Grid.Row="0">
+            <DataGrid 
                   Margin="6" 
+                x:Name="PosGrid"
                   ItemsSource="{Binding Auftrag.Positionen}"
+                  SelectedItem="{Binding CurrentPosition, Mode=OneWayToSource}"  
                   AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Artikel" Width="150" Binding="{Binding Artikel.Bezeichnung}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Menge (Stk)" Binding="{Binding Position.Bestellmenge}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Einzelpreis (€)" Binding="{Binding Artikel.Preis}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Rabatt (%)" Binding="{Binding Position.Rabatt}" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Netto (€)" Binding="{Binding Netto}" IsReadOnly="True"/>
-            </DataGrid.Columns>
-            
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Artikel" Width="150" Binding="{Binding Artikel.Bezeichnung}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Menge (Stk)" Binding="{Binding Position.Bestellmenge}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Einzelpreis (€)" Binding="{Binding Artikel.Preis}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Rabatt (%)" Binding="{Binding Position.Rabatt, Mode=TwoWay}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="Netto (€)" Binding="{Binding Netto}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="CellEditEnding">
+                        <command:EventToCommand Command="{Binding CellEditedCommand}"
+                                                CommandParameter="{Binding ElementName=PosGrid}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Margin="3">
+                <TextBlock Style="{DynamicResource MiddleAllignedTextBlock}">Total Netto: </TextBlock>
+                <TextBlock Style="{DynamicResource MiddleAllignedTextBlock}" Text="{Binding Auftrag.TotalNetto}"/>
+            </StackPanel>
+        </StackPanel>
 
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
-            <!--<Button Margin="3,3,3,3"
+            <Button Margin="3,3,3,3"
                         Width="75"
                         Height="75"
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Left"
                         BorderThickness="0"
                         Background="Transparent"
-                        Command="{Binding AddCustomerCommand}"
-                        Content="{StaticResource User-Add-WF}"/>-->
+                        Command="{Binding CalculateCommand}"
+                        Content="{StaticResource Discount-02}"/>
+            <Button Margin="3,3,3,3"
+                        Width="75"
+                        Height="75"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Left"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Command="{Binding SaveCommand}"
+                        Content="{StaticResource Save}"/>
             <Button Margin="3,3,3,3"
                         Width="75"
                         Height="75"

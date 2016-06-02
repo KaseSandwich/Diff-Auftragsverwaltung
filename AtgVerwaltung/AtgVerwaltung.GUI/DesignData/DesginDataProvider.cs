@@ -118,7 +118,26 @@ namespace AtgVerwaltung.GUI.DesignData
                 kd2Wrapper,
                 kd3Wrapper
             };
-        } 
+        }
+
+        public static List<Artikel> GetArtikel()
+        {
+            return new List<Artikel>()
+            {
+                new Artikel()
+                {
+                    Bezeichnung = "TestArtikel1",
+                    IstLieferbar = true,
+                    Preis = 5.50
+                },
+                new Artikel()
+                {
+                    Bezeichnung = "TestArtikel2",
+                    IstLieferbar = false,
+                    Preis = 12.67
+                }
+            };
+        }
     }
 
     public class TestDiscountProvider : IDisountProvider

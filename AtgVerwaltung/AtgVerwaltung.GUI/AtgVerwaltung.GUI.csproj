@@ -55,6 +55,10 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -80,6 +84,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Data\GlobalData.cs" />
     <Compile Include="DesignData\DesginDataProvider.cs" />
     <Compile Include="Messages\CloseMessage.cs" />
     <Compile Include="ViewModel\AllArticlesViewModel.cs" />
@@ -91,14 +96,14 @@
     <Compile Include="Views\AllArticleView.xaml.cs">
       <DependentUpon>AllArticleView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Res\AtgVerwaltung.xaml">
+    <EmbeddedResource Include="Res\AtgVerwaltung.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Res\Styles.xaml">
-      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Res\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="Views\AllArticleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

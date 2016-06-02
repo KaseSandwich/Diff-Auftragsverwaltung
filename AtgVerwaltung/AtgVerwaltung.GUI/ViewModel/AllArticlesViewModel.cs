@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AtgVerwaltung.GUI.Data;
 using AtgVerwaltung.GUI.Messages;
 using AtgVerwaltung.Model;
 using GalaSoft.MvvmLight.Command;
@@ -25,21 +26,8 @@ namespace AtgVerwaltung.GUI.ViewModel
 
         public AllArticlesViewModel()
         {
-            Artikel = new ObservableCollection<Artikel>()
-            {
-                new Artikel()
-                {
-                    Bezeichnung = "TestArtikel1",
-                    IstLieferbar = true,
-                    Preis = 5.50
-                },
-                new Artikel()
-                {
-                    Bezeichnung = "TestArtikel2",
-                    IstLieferbar = false,
-                    Preis = 12.67
-                }
-            };
+            Artikel = new ObservableCollection<Artikel>();
+            GlobalData.Repo.Articles.ForEach(a => Artikel.Add(a));
 
             AddArticleCommand = new RelayCommand(AddArticleExecute);
             CloseCommand = new RelayCommand(CloseExecute);

@@ -11,19 +11,11 @@ namespace AtgVerwaltung.Lib.ModelWrapper
 {
     public class AuftragWrapper : ObservableObject
     {
-        private bool _isOpen;
-
-        public bool IsOpen
-        {
-            get { return _isOpen; }
-            set { _isOpen = value; RaisePropertyChanged(); }
-        }
-        
         private Auftrag _auftrag;
         public Auftrag Auftrag
         {
             get { return _auftrag; }
-            set { _auftrag = value; RaisePropertyChanged();}
+            set { _auftrag = value; RaisePropertyChanged(); RaisePropertyChanged(nameof(TotalNetto));}
         }
 
         private Kunde _kunde;
@@ -38,7 +30,7 @@ namespace AtgVerwaltung.Lib.ModelWrapper
         public ObservableCollection<PositionWrapper> Positionen
         {
             get { return _positionen; }
-            set { _positionen = value; RaisePropertyChanged(); }
+            set { _positionen = value; RaisePropertyChanged(); RaisePropertyChanged(nameof(TotalNetto)); }
         }
 
         public AuftragWrapper(Auftrag atg)
@@ -50,6 +42,18 @@ namespace AtgVerwaltung.Lib.ModelWrapper
         public AuftragWrapper()
         {
             Positionen = new ObservableCollection<PositionWrapper>();
+        }
+
+        public double TotalNetto { get { return Positionen.Sum(p => p.Netto)*(1 - Auftrag.Rabatt/100); } }
+
+
+        public void RefreshNetto()
+        {
+            foreach (var pos in Positionen.Where(p => p.Position.Bestellmenge > 0))
+            {
+                pos.RefreshNetto();
+            }
+            RaisePropertyChanged(() => TotalNetto);
         }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="ModelWrapper\AuftragWrapper.cs" />
     <Compile Include="ModelWrapper\CustomerWrapper.cs" />
     <Compile Include="ModelWrapper\PositionWrapper.cs" />
+    <Compile Include="ModelWrapper\TempRepoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlDataProvider.cs" />
   </ItemGroup>

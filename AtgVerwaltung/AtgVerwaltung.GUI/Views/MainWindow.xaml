@@ -18,6 +18,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Datei">

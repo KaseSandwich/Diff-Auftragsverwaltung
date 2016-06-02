@@ -19,8 +19,7 @@ namespace AtgVerwaltung.Lib
         #endregion
 
         #region constructors
-
-
+        
         /// <summary>
         /// 
         /// </summary>

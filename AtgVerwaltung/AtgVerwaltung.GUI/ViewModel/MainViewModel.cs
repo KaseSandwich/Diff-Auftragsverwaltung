@@ -1,13 +1,19 @@
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AtgVerwaltung.GUI.Data;
+using AtgVerwaltung.GUI.DesignData;
 using AtgVerwaltung.GUI.Views;
 using AtgVerwaltung.Lib;
 using AtgVerwaltung.Lib.ModelWrapper;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace AtgVerwaltung.GUI.ViewModel
 {
@@ -53,17 +59,51 @@ namespace AtgVerwaltung.GUI.ViewModel
             SaveFileCommand = new RelayCommand(SaveFileExecute);
             ReadFileCommand = new RelayCommand(ReadFileExecute);
             OpenAtgCommand = new RelayCommand(OpenAtgExecute);
+
+            Kunden = new ObservableCollection<CustomerWrapper>();
         }
         
         #region CommandHandler
         private void ReadFileExecute()
         {
-            MessageBox.Show("Lesen");
+            OpenFileDialog dlg = new OpenFileDialog()
+            {
+                Filter = "Json Dateien(*.json) | *.json"
+            };
+
+            string json = "";
+            if (!dlg.ShowDialog().Value)
+            {
+                MessageBox.Show("Üngltige Datei ausgewählt!");
+                return;
+            }
+
+            json = File.ReadAllText(dlg.FileName);
+
+            try
+            {
+                GlobalData.Repo = JsonConvert.DeserializeObject<TempRepoMapper>(json);
+                Kunden?.Clear();
+                GlobalData.Repo.Customers.ForEach(c => Kunden.Add(c));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Fehler beim Lesen der Json Datei!");
+            }
+
         }
 
         private void SaveFileExecute()
         {
-            MessageBox.Show("Speichern");
+            var json = JsonConvert.SerializeObject(GlobalData.Repo);
+
+            SaveFileDialog dlg = new SaveFileDialog()
+            {
+                Filter = "Json Dateien(*.json) | *.json"
+            };
+
+            if(dlg.ShowDialog().Value)
+                File.WriteAllText(dlg.FileName, json);
         }
 
         private void CloseExecute()
@@ -86,13 +126,6 @@ namespace AtgVerwaltung.GUI.ViewModel
         private async void LoadedExecute()
         {
             IsLoading = true;
-
-            await Task.Run(() =>
-            {
-#if DEBUG
-                Kunden = DesignData.DesginDataProvider.GetKunden();
-#endif
-            });
 
             IsLoading = false;
         }
